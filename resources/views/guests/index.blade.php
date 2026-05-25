@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Horizon Hotel - Rooms</title>
+    <title>Grand Horizon Hotel - Guests</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,10 +22,10 @@
             <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg transition">
                 <i class="fa-solid fa-chart-pie w-5"></i> Dashboard
             </a>
-            <a href="{{ route('rooms.index') }}" class="flex items-center gap-3 px-4 py-3 bg-emerald-600 text-white rounded-lg font-medium shadow-sm">
+            <a href="{{ route('rooms.index') }}" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg transition">
                 <i class="fa-solid fa-bed w-5"></i> Rooms Inventory
             </a>
-            <a href="{{ route('guests.index') }}" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg transition">
+            <a href="{{ route('guests.index') }}" class="flex items-center gap-3 px-4 py-3 bg-emerald-600 text-white rounded-lg font-medium shadow-sm">
                 <i class="fa-solid fa-users w-5"></i> Guests
             </a>
             <a href="{{ route('bookings.index') }}" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg transition">
@@ -39,7 +39,7 @@
 
     <main class="flex-1 pl-64">
         <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-8 sticky top-0 z-20">
-            <h1 class="text-xl font-bold text-slate-800">Rooms Inventory</h1>
+            <h1 class="text-xl font-bold text-slate-800">Guest Management</h1>
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-semibold text-sm">
                     A
@@ -57,26 +57,24 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-4">
-                    <div class="p-4 bg-blue-50 text-blue-600 rounded-xl"><i class="fa-solid fa-door-open text-2xl"></i></div>
+                    <div class="p-4 bg-blue-50 text-blue-600 rounded-xl"><i class="fa-solid fa-users text-2xl"></i></div>
                     <div>
-                        <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Total Capacity</span>
-                        <h3 class="text-2xl font-bold mt-1">{{ $rooms->count() }} Rooms</h3>
+                        <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Total Guests</span>
+                        <h3 class="text-2xl font-bold mt-1">{{ $guests->count() }} Guests</h3>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-4">
-                    <div class="p-4 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-circle-check text-2xl"></i></div>
+                    <div class="p-4 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-envelope text-2xl"></i></div>
                     <div>
-                        <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Available Now</span>
-                        <h3 class="text-2xl font-bold mt-1 text-emerald-600">{{ $rooms->where('is_available', true)->count() }} Rooms</h3>
+                        <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Verified Emails</span>
+                        <h3 class="text-2xl font-bold mt-1 text-emerald-600">{{ $guests->count() }}</h3>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-4">
-                    <div class="p-4 bg-amber-50 text-amber-600 rounded-xl"><i class="fa-solid fa-user-lock text-2xl"></i></div>
+                    <div class="p-4 bg-amber-50 text-amber-600 rounded-xl"><i class="fa-solid fa-phone text-2xl"></i></div>
                     <div>
-                        <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Occupancy Rate</span>
-                        <h3 class="text-2xl font-bold mt-1 text-amber-600">
-                            {{ $rooms->count() > 0 ? round(($rooms->where('is_available', false)->count() / $rooms->count()) * 100) : 0 }}%
-                        </h3>
+                        <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Phone Records</span>
+                        <h3 class="text-2xl font-bold mt-1 text-amber-600">{{ $guests->count() }}</h3>
                     </div>
                 </div>
             </div>
@@ -84,11 +82,11 @@
             <div class="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
                 <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
-                        <h2 class="text-lg font-bold text-slate-900">All Rooms Listings</h2>
-                        <p class="text-xs text-slate-400 mt-0.5">Filter, monitor status, and manage system properties.</p>
+                        <h2 class="text-lg font-bold text-slate-900">All Guest Records</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Manage guest information and contact details.</p>
                     </div>
-                    <a href="{{ route('rooms.create') }}" class="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-medium text-sm rounded-xl flex items-center gap-2 transition shadow-sm">
-                        <i class="fa-solid fa-plus text-xs"></i> Create New Room
+                    <a href="{{ route('guests.create') }}" class="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-medium text-sm rounded-xl flex items-center gap-2 transition shadow-sm">
+                        <i class="fa-solid fa-plus text-xs"></i> Register New Guest
                     </a>
                 </div>
 
@@ -96,54 +94,46 @@
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-slate-50 border-b border-slate-100 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                <th class="py-4 px-6">Room Identity</th>
-                                <th class="py-4 px-6">Room Configuration</th>
-                                <th class="py-4 px-6">Base Rate / Night</th>
-                                <th class="py-4 px-6">System Status</th>
+                                <th class="py-4 px-6">Guest Name</th>
+                                <th class="py-4 px-6">Email Address</th>
+                                <th class="py-4 px-6">Phone Number</th>
+                                <th class="py-4 px-6">Registration Date</th>
                                 <th class="py-4 px-6 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100 text-sm font-medium">
-                            @forelse($rooms as $room)
+                            @forelse($guests as $guest)
                             <tr class="hover:bg-slate-50/70 transition">
                                 <td class="py-4 px-6">
                                     <div class="flex items-center gap-3">
                                         <div class="w-10 h-10 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center font-bold text-sm">
-                                            #{{ $room->room_number }}
+                                            {{ strtoupper(substr($guest->name, 0, 1)) }}
                                         </div>
                                         <div>
-                                            <span class="block text-slate-900 font-semibold">Room {{ $room->room_number }}</span>
-                                            <span class="text-xs text-slate-400">ID: RMS-00{{ $room->id }}</span>
+                                            <span class="block text-slate-900 font-semibold">{{ $guest->name }}</span>
+                                            <span class="text-xs text-slate-400">ID: GST-00{{ $guest->id }}</span>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="py-4 px-6 text-slate-600">
                                     <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-xs font-medium text-slate-700">
-                                        <i class="fa-solid fa-sliders text-slate-400 text-[10px]"></i> {{ $room->type }}
+                                        {{ $guest->email }}
                                     </span>
                                 </td>
                                 <td class="py-4 px-6 font-semibold text-slate-900">
-                                    ${{ number_format($room->price, 2) }}
+                                    {{ $guest->phone }}
                                 </td>
-                                <td class="py-4 px-6">
-                                    @if($room->is_available)
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-xs font-semibold text-emerald-700">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Available
-                                        </span>
-                                    @else
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-xs font-semibold text-amber-700">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Occupied
-                                        </span>
-                                    @endif
+                                <td class="py-4 px-6 text-slate-600">
+                                    {{ $guest->created_at->format('M d, Y') }}
                                 </td>
                                 <td class="py-4 px-6 text-right space-x-2">
-                                    <a href="{{ route('rooms.edit', $room->id) }}" class="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-blue-600 transition" title="Edit Properties">
+                                    <a href="{{ route('guests.edit', $guest->id) }}" class="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-blue-600 transition" title="Edit Guest">
                                         <i class="fa-solid fa-pen-to-square text-xs"></i>
                                     </a>
-                                    <form action="{{ route('rooms.destroy', $room->id) }}" method="POST" class="inline-block">
+                                    <form action="{{ route('guests.destroy', $guest->id) }}" method="POST" class="inline-block">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Are you sure you want to remove this property entry?')" class="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-slate-200 text-slate-500 hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition cursor-pointer" title="Delete Room">
+                                        <button type="submit" onclick="return confirm('Are you sure you want to remove this guest record?')" class="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-slate-200 text-slate-500 hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition cursor-pointer" title="Delete Guest">
                                             <i class="fa-solid fa-trash text-xs"></i>
                                         </button>
                                     </form>
@@ -152,8 +142,8 @@
                             @empty
                             <tr>
                                 <td colspan="5" class="py-12 text-center text-slate-400">
-                                    <i class="fa-solid fa-bed text-3xl block mb-3 text-slate-300"></i>
-                                    No rooms cataloged yet. click the add resource button to begin setup.
+                                    <i class="fa-solid fa-users text-3xl block mb-3 text-slate-300"></i>
+                                    No guests registered yet. Click the register button to add a new guest.
                                 </td>
                             </tr>
                             @endforelse

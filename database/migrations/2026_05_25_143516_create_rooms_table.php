@@ -10,16 +10,16 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::create('rooms - 2026_05_25_135053_create_rooms_table.php:14', function (Blueprint $table) {
-        $table->id();
-        $table->string('room_number')->unique();
-        $table->string('type');
-        $table->decimal('price', 8, 2);
-        $table->boolean('is_available')->default(true);
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('rooms', function (Blueprint $table) {
+            $table->id();
+            $table->string('room_number')->unique();
+            $table->string('type');
+            $table->decimal('price', 8, 2);
+            $table->boolean('is_available')->default(true);
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.
